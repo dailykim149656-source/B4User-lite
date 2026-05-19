@@ -2,20 +2,20 @@
 
 [English README](README.md)
 
-B4User-lite는 실제 배포 전에 agent, 제품 컨셉, 응답 패턴이 한국어 synthetic persona 앞에서 버틸 수 있는지 점검하는 Apache-2.0 공개용 pre-user validation harness입니다.
+B4User-lite는 실제 사용자에게 배포하기 전, 에이전트와 제품 컨셉을 한국어 합성 페르소나로 사전 점검하는 공개용 pre-user validation harness입니다. 응답 방식이 어떻게 받아들여지는지 재현 가능하게 살펴볼 수 있습니다. 라이선스는 Apache-2.0입니다.
 
-이 프로젝트는 또 하나의 persona survey 도구가 아닙니다. 합성 사용자에게 구조화된 질문을 만들고, 대상 agent나 제품 응답을 수집하고, 기본 루브릭으로 평가한 뒤, 사람이 검토할 수 있는 evidence artifact를 남기는 작고 반복 가능한 하네스입니다.
+B4User-lite는 단순한 페르소나 설문 도구가 아닙니다. 구조화된 질문을 만들고, 대상 에이전트나 제품 응답을 모읍니다. 그런 다음 예시용 기본 루브릭으로 점검해, 사람이 다시 읽을 수 있는 근거 산출물을 남깁니다.
 
-> Synthetic users are not real users. B4User-lite 결과는 synthetic persona 기반 평가 가설입니다. 실제 사용자 조사, 시장 수요 검증, 직원 인터뷰, 법무 검토, 보안 검토, production safety review를 대체하지 않습니다.
+> Synthetic users are not real users. B4User-lite의 결과는 합성 페르소나 기반 평가 가설입니다. 실제 사용자 조사, 시장 수요 검증, 직원 인터뷰, 법무 검토, 보안 검토, production safety review를 대체하지 않습니다.
 
 ## 이걸로 할 수 있는 것
 
-- JSONL persona와 YAML service spec으로 한국어 synthetic-user 질문을 만들 수 있습니다.
-- API key 없이 mock target response를 사용해 deterministic local evaluation을 실행할 수 있습니다.
-- 이미 수집한 agent/product 응답을 generic response-quality rubric으로 평가할 수 있습니다.
-- Markdown report와 JSONL artifact를 만들어 사람이 검토할 수 있습니다.
-- 선택 dependency를 설치하면 `nvidia/Nemotron-Personas-Korea`에서 persona sample을 import할 수 있습니다.
-- public-export audit으로 공개본에 private docs, generated outputs, credential, proprietary evaluation surface가 섞였는지 검사할 수 있습니다.
+- JSONL persona와 YAML service spec을 바탕으로 한국어 synthetic-user 질문을 생성합니다.
+- API key 없이 mock target response로 재현 가능한 로컬 평가를 실행합니다.
+- 이미 모아 둔 에이전트 또는 제품 응답을 generic response-quality rubric으로 점검합니다.
+- Markdown report와 JSONL artifact를 만들어 사람이 검토할 수 있는 기록을 남깁니다.
+- 선택 의존성을 설치하면 `nvidia/Nemotron-Personas-Korea`에서 persona sample을 가져올 수 있습니다.
+- public-export audit으로 공개본을 점검합니다. private docs, generated outputs, credential, proprietary evaluation surface가 섞이면 audit이 실패합니다.
 
 ## 포함된 것
 
@@ -27,13 +27,24 @@ B4User-lite는 실제 배포 전에 agent, 제품 컨셉, 응답 패턴이 한�
 - `clarity`, `actionability`, `risk_disclosure`, `persona_fit` 중심의 generic illustrative rubric
 - synthetic-hypothesis 경고문이 포함된 Markdown report
 - Nemotron-Personas-Korea importer와 source attribution metadata
-- Python CLI 실행을 위한 npm wrapper source
+- Python CLI를 실행하기 위한 npm wrapper source
 
 ## 의도적으로 제외한 것
 
-private B4User working repository는 공개하지 않았습니다. B4User-lite에는 고급 평가 루브릭, AX 도입 마찰 스코어링, 산업별 domain pack, Product Risk Profile, evaluator training, ontology/promotion bridge, Sales Pack logic, generated artifact, private planning docs, raw dataset, processed dataset이 포함되지 않습니다.
+private B4User working repository는 공개하지 않았습니다. B4User-lite에는 다음 항목이 포함되지 않습니다.
 
-이 repo는 전체 내부 제품이 아니라 공개 가능한 B4User-lite 경계입니다.
+- 고급 평가 루브릭
+- AX 도입 마찰 스코어링
+- 산업별 domain pack
+- Product Risk Profile
+- evaluator training
+- ontology/promotion bridge
+- Sales Pack logic
+- generated artifact
+- private planning docs
+- raw dataset과 processed dataset
+
+이 저장소는 전체 내부 제품이 아니라 공개 가능한 B4User-lite 경계입니다.
 
 ## 개발 설치
 
@@ -47,7 +58,7 @@ python -m pip install -e ".[dev]"
 python -m b4user --help
 ```
 
-Nemotron/Hugging Face import를 쓰려면 선택 dependency를 설치합니다.
+Nemotron/Hugging Face import를 쓰려면 선택 의존성을 설치합니다.
 
 ```powershell
 python -m pip install -e ".[dev,hf]"
@@ -55,7 +66,7 @@ python -m pip install -e ".[dev,hf]"
 
 ## 빠른 실행
 
-deterministic local demo를 실행합니다.
+재현 가능한 로컬 demo를 실행합니다.
 
 ```powershell
 b4user run --personas data/personas_sample.jsonl --service configs/service.yaml --domain-pack generic --n-personas 20 --questions-per-persona 2 --output-dir outputs/demo --seed 42
@@ -63,7 +74,7 @@ b4user run --personas data/personas_sample.jsonl --service configs/service.yaml 
 
 생성물은 Git에서 무시되는 `outputs/` 아래에 만들어집니다.
 
-주요 output:
+주요 출력물:
 
 - `profiles.jsonl`: synthetic-user profile
 - `scenarios.jsonl`: profile별 평가 상황
@@ -99,7 +110,7 @@ Nemotron persona import:
 b4user import-nemotron --n 100 --seed 42 --output data/processed/nemotron_sample.jsonl
 ```
 
-`data/processed/`는 Git에서 무시됩니다. 외부 dataset row를 commit하기 전에는 license, attribution, privacy implication을 반드시 검토하세요.
+`data/processed/`는 Git에서 무시됩니다. 외부 데이터셋 row를 commit하기 전에는 라이선스, 출처 표기, 개인정보/재배포 이슈를 반드시 검토하세요.
 
 ## 입력 형식
 
