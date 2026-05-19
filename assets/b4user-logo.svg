@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="180" viewBox="0 0 820 180" role="img" aria-labelledby="title desc">
+  <title id="title">B4User-lite logo</title>
+  <desc id="desc">B4User wordmark with a compact B4 symbol and lite badge.</desc>
+  <style>
+    .word { fill: #111827; }
+    .muted { fill: #475569; }
+    .badge-bg { fill: #e0f2fe; }
+    .badge-text { fill: #0369a1; }
+    @media (prefers-color-scheme: dark) {
+      .word { fill: #f8fafc; }
+      .muted { fill: #cbd5e1; }
+      .badge-bg { fill: #0f172a; }
+      .badge-text { fill: #7dd3fc; }
+    }
+  </style>
+  <rect x="12" y="12" width="156" height="156" rx="34" fill="#111827"/>
+  <path d="M52 47h58c19 0 32 11 32 28 0 11-5 20-15 25 13 5 20 15 20 30 0 22-16 34-41 34H52V47zm54 43c11 0 17-5 17-14s-6-14-17-14H73v28h33zm4 58c13 0 20-6 20-17s-7-17-20-17H73v34h37z" fill="#f8fafc"/>
+  <path d="M94 119h34v-17H94V76H76l-38 47v16h38v25h18v-25zm-18 0H58l18-23v23z" fill="#38bdf8"/>
+  <circle cx="128" cy="52" r="10" fill="#22c55e"/>
+  <circle cx="145" cy="70" r="6" fill="#38bdf8"/>
+  <path d="M133 57l8 8" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/>
+  <text x="204" y="97" class="word" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="70" font-weight="800">B4User</text>
+  <rect x="507" y="45" width="98" height="44" rx="22" class="badge-bg"/>
+  <text x="539" y="75" class="badge-text" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">lite</text>
+  <text x="207" y="136" class="muted" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="500">pre-user validation harness</text>
+</svg>
