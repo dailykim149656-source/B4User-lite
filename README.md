@@ -2,6 +2,8 @@
   <img src="assets/b4user-logo.png" alt="B4User-lite logo" width="640">
 </p>
 
+<p align="center"><strong>Build before users. But validate before users, too.</strong></p>
+
 # B4User-lite
 
 [한국어 README](README.ko.md)
