@@ -1,5 +1,6 @@
 include LICENSE
 include NOTICE
+include PUBLIC_EXPORT_AUDIT.md
 include PUBLIC_RELEASE.md
 include README.md
 include README.ko.md

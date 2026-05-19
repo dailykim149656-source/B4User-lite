@@ -25,9 +25,6 @@ evidence artifacts that a human can review.
 - Produce Markdown reports and JSONL artifacts for review.
 - Import a sample from `nvidia/Nemotron-Personas-Korea` when the optional
   Hugging Face dependencies are installed.
-- Use the included public-export audit to verify that a modified lite export
-  does not accidentally include private docs, generated outputs, credentials, or
-  proprietary evaluation surfaces.
 
 ## What Is Included
 
@@ -41,16 +38,6 @@ evidence artifacts that a human can review.
 - Markdown report generation with explicit synthetic-hypothesis wording.
 - Nemotron-Personas-Korea importer with source attribution metadata.
 - npm wrapper package source for installing/running the Python CLI.
-
-## What Is Intentionally Excluded
-
-The private B4User working repository is not public. B4User-lite intentionally
-excludes advanced evaluation rubrics, AX adoption-friction scoring, industry
-domain packs, Product Risk Profile, evaluator training, ontology/promotion
-bridges, Sales Pack logic, generated artifacts, private planning docs, raw
-datasets, and processed datasets.
-
-This repository is the public boundary, not the full internal product.
 
 ## Install For Development
 
@@ -150,19 +137,6 @@ published under CC BY 4.0. Converted records preserve attribution through:
 - `metadata.source_dataset`
 - `metadata.source_license`
 - `metadata.source_fields`
-
-## Public Export Audit
-
-Before publishing a modified export, run:
-
-```powershell
-python scripts/audit_b4user_lite_export.py .
-python -m pytest
-```
-
-The audit checks that the public export keeps the lite boundary: no private
-docs, generated artifacts, raw/processed datasets, credentials, proprietary
-domain packs, or advanced private evaluation surfaces.
 
 ## License
 

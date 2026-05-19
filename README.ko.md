@@ -15,7 +15,6 @@ B4User-lite는 단순한 페르소나 설문 도구가 아닙니다. 구조화�
 - 이미 모아 둔 에이전트 또는 제품 응답을 generic response-quality rubric으로 점검합니다.
 - Markdown report와 JSONL artifact를 만들어 사람이 검토할 수 있는 기록을 남깁니다.
 - 선택 의존성을 설치하면 `nvidia/Nemotron-Personas-Korea`에서 persona sample을 가져올 수 있습니다.
-- public-export audit으로 공개본을 점검합니다. private docs, generated outputs, credential, proprietary evaluation surface가 섞이면 audit이 실패합니다.
 
 ## 포함된 것
 
@@ -28,23 +27,6 @@ B4User-lite는 단순한 페르소나 설문 도구가 아닙니다. 구조화�
 - synthetic-hypothesis 경고문이 포함된 Markdown report
 - Nemotron-Personas-Korea importer와 source attribution metadata
 - Python CLI를 실행하기 위한 npm wrapper source
-
-## 의도적으로 제외한 것
-
-private B4User working repository는 공개하지 않았습니다. B4User-lite에는 다음 항목이 포함되지 않습니다.
-
-- 고급 평가 루브릭
-- AX 도입 마찰 스코어링
-- 산업별 domain pack
-- Product Risk Profile
-- evaluator training
-- ontology/promotion bridge
-- Sales Pack logic
-- generated artifact
-- private planning docs
-- raw dataset과 processed dataset
-
-이 저장소는 전체 내부 제품이 아니라 공개 가능한 B4User-lite 경계입니다.
 
 ## 개발 설치
 
@@ -141,17 +123,6 @@ Importer는 CC BY 4.0으로 공개된 NVIDIA의 별도 dataset인 `nvidia/Nemotr
 - `metadata.source_dataset`
 - `metadata.source_license`
 - `metadata.source_fields`
-
-## Public export audit
-
-수정한 공개본을 배포하기 전에는 다음을 실행합니다.
-
-```powershell
-python scripts/audit_b4user_lite_export.py .
-python -m pytest
-```
-
-Audit은 공개본이 lite 경계를 지키는지 검사합니다. private docs, generated artifacts, raw/processed datasets, credentials, proprietary domain packs, advanced private evaluation surfaces가 섞이면 실패합니다.
 
 ## License
 
