@@ -34,6 +34,8 @@ def test_python_package_declares_public_license_metadata() -> None:
     assert pyproject["project"]["license"] == {"file": "LICENSE"}
     assert "License :: OSI Approved :: Apache Software License" in pyproject["project"]["classifiers"]
     assert "nvidia/Nemotron-Personas-Korea" in (REPO_ROOT / "NOTICE").read_text(encoding="utf-8")
+    assert (REPO_ROOT / "README.ko.md").exists()
+    assert "이걸로 할 수 있는 것" in (REPO_ROOT / "README.ko.md").read_text(encoding="utf-8")
 
 
 def test_npm_cli_package_uses_public_license() -> None:

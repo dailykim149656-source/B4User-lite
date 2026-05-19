@@ -1,19 +1,63 @@
 # B4User-lite
 
-B4User-lite is an Apache-2.0, offline-first pre-user validation harness for testing agent or product responses against Korean synthetic personas before real deployment.
+[한국어 README](README.ko.md)
 
-> Synthetic users are not real users. B4User-lite outputs are synthetic persona evaluation hypotheses. They do not replace real user research, market demand validation, employee interviews, or production safety review.
+B4User-lite is an Apache-2.0, offline-first pre-user validation harness for
+testing whether an agent, product concept, or response pattern holds up against
+Korean synthetic personas before real deployment.
 
-## What Is Public Here
+It is not another persona survey tool. It is a small, repeatable harness for
+asking synthetic users structured questions, collecting target responses,
+scoring those responses with an illustrative baseline rubric, and producing
+evidence artifacts that a human can review.
 
-- `b4user` CLI for JSONL persona input and YAML/JSON service config.
-- Deterministic question generation, mock response collection, basic response-quality evaluation, and Markdown/JSONL artifacts.
-- Nemotron-Personas-Korea import support with source attribution metadata.
-- Generic illustrative rubric axes such as clarity, actionability, risk disclosure, and persona fit.
+> Synthetic users are not real users. B4User-lite outputs are synthetic persona
+> evaluation hypotheses. They do not replace real user research, market demand
+> validation, employee interviews, legal review, security review, or production
+> safety approval.
 
-The private B4User working repository is not public. Advanced rubrics, AX adoption-friction scoring, industry domain packs, Product Risk Profile, evaluator training, ontology/promotion bridges, Sales Pack logic, generated artifacts, private docs, and raw/processed datasets are intentionally excluded.
+## What You Can Do With It
+
+- Generate Korean synthetic-user questions from JSONL personas and a YAML
+  service spec.
+- Run a deterministic local evaluation with mock target responses.
+- Evaluate collected target responses against a generic response-quality rubric.
+- Produce Markdown reports and JSONL artifacts for review.
+- Import a sample from `nvidia/Nemotron-Personas-Korea` when the optional
+  Hugging Face dependencies are installed.
+- Use the included public-export audit to verify that a modified lite export
+  does not accidentally include private docs, generated outputs, credentials, or
+  proprietary evaluation surfaces.
+
+## What Is Included
+
+- `b4user` CLI for the lite workflow.
+- JSONL persona loading and YAML/JSON service config loading.
+- Deterministic persona sampling, persona compilation, scenario generation, and
+  question generation.
+- Mock response collection for offline smoke tests.
+- Basic response-quality scoring with generic rubric axes:
+  `clarity`, `actionability`, `risk_disclosure`, and `persona_fit`.
+- Markdown report generation with explicit synthetic-hypothesis wording.
+- Nemotron-Personas-Korea importer with source attribution metadata.
+- npm wrapper package source for installing/running the Python CLI.
+
+## What Is Intentionally Excluded
+
+The private B4User working repository is not public. B4User-lite intentionally
+excludes advanced evaluation rubrics, AX adoption-friction scoring, industry
+domain packs, Product Risk Profile, evaluator training, ontology/promotion
+bridges, Sales Pack logic, generated artifacts, private planning docs, raw
+datasets, and processed datasets.
+
+This repository is the public boundary, not the full internal product.
 
 ## Install For Development
+
+Requirements:
+
+- Python 3.11+
+- Node.js 18+ only if you want to inspect or package the npm wrapper
 
 ```powershell
 python -m pip install -e ".[dev]"
@@ -26,7 +70,9 @@ Optional Nemotron/Hugging Face import support:
 python -m pip install -e ".[dev,hf]"
 ```
 
-## Quick Smoke
+## Quick Start
+
+Run the deterministic local demo:
 
 ```powershell
 b4user run --personas data/personas_sample.jsonl --service configs/service.yaml --domain-pack generic --n-personas 20 --questions-per-persona 2 --output-dir outputs/demo --seed 42
@@ -34,9 +80,76 @@ b4user run --personas data/personas_sample.jsonl --service configs/service.yaml 
 
 Generated artifacts are written under `outputs/`, which is ignored by Git.
 
+Typical outputs:
+
+- `profiles.jsonl`: compiled synthetic-user profiles
+- `scenarios.jsonl`: evaluation situations for each profile
+- `questions.jsonl`: generated synthetic-user questions
+- `target_responses.jsonl`: provided or mock target responses
+- `evaluation_results.jsonl`: rubric scores and failure signals
+- `report.md`: human-readable synthetic-evidence report
+- `run_config.json`: run metadata with the synthetic-hypothesis warning
+
+## CLI Commands
+
+Generate questions only:
+
+```powershell
+b4user generate-questions --personas data/personas_sample.jsonl --service configs/service.yaml --domain-pack generic --n-personas 10 --questions-per-persona 2 --output outputs/questions.jsonl --seed 42
+```
+
+Evaluate existing responses:
+
+```powershell
+b4user evaluate --questions outputs/questions.jsonl --responses data/responses_sample.jsonl --rubric generic --failure-modes generic --output outputs/evaluation_results.jsonl
+```
+
+Generate a Markdown report:
+
+```powershell
+b4user report --results outputs/evaluation_results.jsonl --profiles outputs/profiles.jsonl --scenarios outputs/scenarios.jsonl --questions outputs/questions.jsonl --service configs/service.yaml --output outputs/report.md
+```
+
+Import Nemotron personas:
+
+```powershell
+b4user import-nemotron --n 100 --seed 42 --output data/processed/nemotron_sample.jsonl
+```
+
+`data/processed/` is ignored by Git. Do not commit imported dataset rows unless
+you have reviewed the license, attribution, and privacy implications for your
+use case.
+
+## Input Formats
+
+Personas are JSONL records with fields like:
+
+```json
+{"persona_id":"kr_000001","age":47,"gender":"female","province":"전라북도","city":"전주시","occupation":"제조업 사무직","digital_literacy":"medium","persona":"반복적인 엑셀 정리 업무를 줄이고 싶지만 비용과 유지보수 조건을 확인하고 싶어한다."}
+```
+
+The service spec is YAML:
+
+```yaml
+name: Example Agent
+description: Helps small teams automate repetitive customer follow-up.
+target_users:
+  - Small business operators
+service_capabilities:
+  - Draft follow-up messages
+  - Explain automation limits
+known_limits:
+  - Requires human review before sending messages
+```
+
 ## Nemotron Attribution
 
-The importer targets `nvidia/Nemotron-Personas-Korea`, a separate NVIDIA dataset published under CC BY 4.0. Converted records preserve `metadata.source_dataset` and `metadata.source_license`.
+The importer targets `nvidia/Nemotron-Personas-Korea`, a separate NVIDIA dataset
+published under CC BY 4.0. Converted records preserve attribution through:
+
+- `metadata.source_dataset`
+- `metadata.source_license`
+- `metadata.source_fields`
 
 ## Public Export Audit
 
@@ -46,3 +159,12 @@ Before publishing a modified export, run:
 python scripts/audit_b4user_lite_export.py .
 python -m pytest
 ```
+
+The audit checks that the public export keeps the lite boundary: no private
+docs, generated artifacts, raw/processed datasets, credentials, proprietary
+domain packs, or advanced private evaluation surfaces.
+
+## License
+
+B4User-lite is licensed under Apache-2.0. See [LICENSE](LICENSE) and
+[NOTICE](NOTICE).

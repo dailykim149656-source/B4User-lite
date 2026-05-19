@@ -2,6 +2,7 @@ include LICENSE
 include NOTICE
 include PUBLIC_RELEASE.md
 include README.md
+include README.ko.md
 include REPOSITORY_POLICY.md
 include scripts/audit_b4user_lite_export.py
 include scripts/build_python_package.ps1
