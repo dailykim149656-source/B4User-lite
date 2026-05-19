@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/b4user-logo.svg" alt="B4User-lite logo" width="420">
+  <img src="assets/b4user-logo.png" alt="B4User-lite logo" width="640">
 </p>
 
 # B4User-lite

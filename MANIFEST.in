@@ -7,7 +7,7 @@ include README.ko.md
 include REPOSITORY_POLICY.md
 include scripts/audit_b4user_lite_export.py
 include scripts/build_python_package.ps1
-recursive-include assets *.svg
+recursive-include assets *.png
 recursive-include configs *.yaml *.json
 include data/README.md
 include data/personas_sample.jsonl
