@@ -1,0 +1,16 @@
+B4User
+Copyright 2026 B4User contributors
+
+This product includes software developed for B4User.
+
+B4User can import and convert records from nvidia/Nemotron-Personas-Korea.
+That dataset is published separately under CC BY 4.0 by NVIDIA and
+contributors. Converted records preserve source attribution metadata through
+metadata.source_dataset and metadata.source_license.
+
+Nemotron-Personas-Korea:
+https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea
+
+The B4User evaluation outputs are synthetic-persona hypotheses. They are not
+real user research, market-demand forecasts, employee research findings, or
+production safety approvals.

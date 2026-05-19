@@ -1,0 +1,33 @@
+{
+  "name": "@b4user/cli",
+  "version": "0.1.2",
+  "description": "B4User synthetic persona evidence workbench CLI launcher",
+  "license": "Apache-2.0",
+  "bin": {
+    "b4user": "bin/b4user.cjs"
+  },
+  "scripts": {
+    "postinstall": "node ./scripts/install-python-package.cjs",
+    "check": "node ./scripts/install-python-package.cjs --check && node ./bin/b4user.cjs --version"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "keywords": [
+    "b4user",
+    "cli",
+    "persona",
+    "evaluation",
+    "agent-evaluation"
+  ]
+}

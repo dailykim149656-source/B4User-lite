@@ -1,0 +1,7 @@
+scenarios:
+  automation_adoption:
+    description: 사용자가 AI 업무 자동화 서비스 도입 가능성을 검토한다.
+  privacy_sensitive_workflow:
+    description: 고객 정보나 내부 자료를 포함한 업무 자동화를 검토한다.
+  maintenance_and_cost:
+    description: 도입 후 수정, 유지보수, 추가 비용 조건을 확인한다.

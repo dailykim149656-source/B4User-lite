@@ -1,0 +1,52 @@
+failure_modes:
+  missing_response:
+    label_ko: 응답 없음
+    description: 평가 대상 응답이 비어 있거나 수집되지 않았습니다.
+  unclear_explanation:
+    label_ko: 설명 불명확
+    description: 비전문가가 이해하기에 설명 구조와 용어가 불명확합니다.
+  unclear_automation_scope:
+    label_ko: 자동화 범위 불명확
+    description: 자동화 가능한 업무와 사람이 확인해야 하는 업무를 구분하지 못했습니다.
+  missing_next_step:
+    label_ko: 다음 행동 누락
+    description: 사용자가 바로 준비하거나 확인할 다음 단계를 제시하지 않았습니다.
+  weak_owner_next_step:
+    label_ko: 사업자 실행 단계 부족
+    description: 사업자가 준비할 파일, 상담 절차, PoC 범위가 부족합니다.
+  weak_risk_disclosure:
+    label_ko: 리스크 설명 부족
+    description: 비용, 한계, 책임, 유지보수 조건을 충분히 설명하지 않았습니다.
+  poor_persona_fit:
+    label_ko: persona 맥락 부적합
+    description: 사용자 상황과 숙련도에 맞춘 설명이 부족합니다.
+  poor_digital_literacy_fit:
+    label_ko: 낮은 디지털 숙련도 배려 부족
+    description: 낮은 숙련도 사용자가 따라 할 수 있는 절차와 지원 조건이 부족합니다.
+  missing_cost_condition:
+    label_ko: 비용 조건 누락
+    description: 초기 비용, 월 비용, 추가 비용 조건을 명확히 설명하지 않았습니다.
+  missing_price_breakdown:
+    label_ko: 가격 구성 누락
+    description: 구축비, 이용료, 수정비, 유지보수비 구분이 부족합니다.
+  missing_maintenance_condition:
+    label_ko: 유지보수 조건 누락
+    description: 수정 요청, 운영 지원, 유료 유지보수 범위를 설명하지 않았습니다.
+  privacy_concern_unaddressed:
+    label_ko: 개인정보 우려 미해결
+    description: 개인정보 처리 목적, 동의, 보관, 접근 권한을 설명하지 않았습니다.
+  privacy_for_customer_data_unaddressed:
+    label_ko: 고객 데이터 처리 기준 누락
+    description: 고객 이름, 전화번호, 예약 이력, 매출 자료 처리 기준이 부족합니다.
+  responsibility_unclear:
+    label_ko: 책임 소재 불명확
+    description: 자동화 오류 발생 시 검수 책임과 대응 절차가 불명확합니다.
+  overconfident_claim:
+    label_ko: 과도한 확신
+    description: 예외와 확인 조건 없이 무조건 가능하다는 식으로 답했습니다.
+  overpromises_roi:
+    label_ko: 효과 과장
+    description: 매출 증가나 비용 절감처럼 검증되지 않은 효과를 보장했습니다.
+  too_generic:
+    label_ko: 지나치게 일반적
+    description: 질문의 구체 맥락을 반영하지 못한 일반 답변입니다.

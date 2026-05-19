@@ -1,0 +1,31 @@
+roles:
+  general_user:
+    label: 일반 사용자
+    description: 특정 업종으로 분류되지 않는 일반 synthetic persona
+  small_business_owner:
+    label: 소상공인
+    description: 반복 업무 자동화와 비용 조건에 민감한 사업자
+  office_worker:
+    label: 사무직
+    description: 문서, 보고, 고객 응대 업무 자동화 가능성을 검토하는 사용자
+  manufacturing_worker:
+    label: 제조 현장 직원
+    description: 현장 데이터, 검수, 책임 소재에 민감한 사용자
+
+segment_labels:
+  young_general_user: 청년 일반 사용자
+  middle_aged_general_user: 중장년 일반 사용자
+  older_general_user: 장년 일반 사용자
+  unknown_age_general_user: 연령 미상 일반 사용자
+  young_small_business_owner: 청년 소상공인
+  middle_aged_small_business_owner: 중장년 소상공인
+  older_small_business_owner: 장년 소상공인
+  unknown_age_small_business_owner: 연령 미상 소상공인
+  young_office_worker: 청년 사무직
+  middle_aged_office_worker: 중장년 사무직
+  older_office_worker: 장년 사무직
+  unknown_age_office_worker: 연령 미상 사무직
+  young_manufacturing_worker: 청년 제조 현장 직원
+  middle_aged_manufacturing_worker: 중장년 제조 현장 직원
+  older_manufacturing_worker: 장년 제조 현장 직원
+  unknown_age_manufacturing_worker: 연령 미상 제조 현장 직원

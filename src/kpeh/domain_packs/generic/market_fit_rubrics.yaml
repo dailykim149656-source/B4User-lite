@@ -1,0 +1,28 @@
+rubric_id: market_fit_v1
+criteria:
+  - name: problem_fit
+    description: 이 서비스가 해당 persona의 실제 문제와 맞는가
+    score_min: 0
+    score_max: 5
+  - name: urgency
+    description: 지금 해결하고 싶을 정도로 문제가 절박한가
+    score_min: 0
+    score_max: 5
+  - name: willingness_to_try
+    description: 무료 체험이나 상담을 시도할 동기가 있는가
+    score_min: 0
+    score_max: 5
+  - name: adoption_friction
+    description: 도입 절차, 학습, 조직 승인, 데이터 제공 부담이 큰가
+    score_min: 0
+    score_max: 5
+    reverse_score: true
+  - name: trust_risk
+    description: 개인정보, 오류, 책임, 보안에 대한 불신이 큰가
+    score_min: 0
+    score_max: 5
+    reverse_score: true
+  - name: retention_potential
+    description: 한 번 써본 뒤 계속 사용할 이유가 있는가
+    score_min: 0
+    score_max: 5

@@ -1,0 +1,27 @@
+include LICENSE
+include NOTICE
+include PUBLIC_RELEASE.md
+include README.md
+include REPOSITORY_POLICY.md
+include scripts/audit_b4user_lite_export.py
+include scripts/build_python_package.ps1
+recursive-include configs *.yaml *.json
+include data/README.md
+include data/personas_sample.jsonl
+include data/responses_sample.jsonl
+
+prune build
+prune data/processed
+prune data/raw
+prune dist
+prune outputs
+
+global-exclude *.doc
+global-exclude *.docx
+global-exclude *.key
+global-exclude *.pdf
+global-exclude *.ppt
+global-exclude *.pptx
+global-exclude *.xls
+global-exclude *.xlsx
+global-exclude *.zip

@@ -1,0 +1,18 @@
+rubric_id: generic_ai_service_v1
+criteria:
+  - name: clarity
+    description: 비전문가가 이해할 수 있게 설명했는가
+    score_min: 0
+    score_max: 5
+  - name: actionability
+    description: 사용자가 다음 행동을 결정할 수 있게 안내했는가
+    score_min: 0
+    score_max: 5
+  - name: risk_disclosure
+    description: 비용, 한계, 책임, 유지보수 조건을 숨기지 않고 설명했는가
+    score_min: 0
+    score_max: 5
+  - name: persona_fit
+    description: 해당 사용자 맥락에 맞는 표현과 정보를 제공했는가
+    score_min: 0
+    score_max: 5
