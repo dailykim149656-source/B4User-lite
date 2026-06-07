@@ -42,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--scenarios", required=True)
     report.add_argument("--questions", required=True)
     report.add_argument("--service")
+    report.add_argument("--market-evidence")
     report.add_argument("--output", required=True)
     report.set_defaults(func=_report)
 
@@ -56,6 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--seed", type=int)
     run.add_argument("--filters", help="JSON object of persona filters")
     run.add_argument("--sampling-strategy", default="random")
+    run.add_argument("--market-evidence")
     run.set_defaults(func=_run)
 
     importer = subparsers.add_parser("import-nemotron", help="Import nvidia/Nemotron-Personas-Korea personas")
@@ -121,7 +123,15 @@ def _evaluate(args: argparse.Namespace) -> int:
 
 
 def _report(args: argparse.Namespace) -> int:
-    generate_markdown_report(args.results, args.profiles, args.scenarios, args.questions, args.output, service_path=args.service)
+    generate_markdown_report(
+        args.results,
+        args.profiles,
+        args.scenarios,
+        args.questions,
+        args.output,
+        service_path=args.service,
+        market_evidence_path=args.market_evidence,
+    )
     print(f"report={Path(args.output)}")
     return 0
 
@@ -138,6 +148,7 @@ def _run(args: argparse.Namespace) -> int:
         responses_path=args.responses,
         filters=_json_filters(args.filters),
         sampling_strategy=args.sampling_strategy,
+        market_evidence_path=args.market_evidence,
     )
     for key, path in outputs.items():
         print(f"{key}={path}")

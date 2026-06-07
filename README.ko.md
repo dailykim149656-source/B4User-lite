@@ -19,7 +19,8 @@ B4User-lite는 단순한 페르소나 설문 도구가 아닙니다. 구조화�
 - JSONL persona와 YAML service spec을 바탕으로 한국어 synthetic-user 질문을 생성합니다.
 - API key 없이 mock target response로 재현 가능한 로컬 평가를 실행합니다.
 - 이미 모아 둔 에이전트 또는 제품 응답을 generic response-quality rubric으로 점검합니다.
-- Markdown report와 JSONL artifact를 만들어 사람이 검토할 수 있는 기록을 남깁니다.
+- Markdown report, persona-selection audit, JSONL artifact를 만들어 사람이 검토할 수 있는 기록을 남깁니다.
+- 키워드 리서치, Search Console, 랜딩 페이지 전환 같은 방향성 market-evidence CSV/JSON을 붙여 report의 claim limit을 명시합니다.
 - 선택 의존성을 설치하면 `nvidia/Nemotron-Personas-Korea`에서 persona sample을 가져올 수 있습니다.
 
 ## 포함된 것
@@ -30,7 +31,8 @@ B4User-lite는 단순한 페르소나 설문 도구가 아닙니다. 구조화�
 - offline smoke test용 mock response collection
 - 기본 response-quality scoring
 - `clarity`, `actionability`, `risk_disclosure`, `persona_fit` 중심의 generic illustrative rubric
-- synthetic-hypothesis 경고문이 포함된 Markdown report
+- Decision Brief, claim ledger, synthetic-hypothesis 경고문이 포함된 Markdown report
+- sampling logic, target-fit caveat, human review candidate를 보여주는 persona-selection audit
 - Nemotron-Personas-Korea importer와 source attribution metadata
 - Python CLI를 실행하기 위한 npm wrapper source
 
@@ -69,8 +71,18 @@ b4user run --personas data/personas_sample.jsonl --service configs/service.yaml 
 - `questions.jsonl`: 생성된 synthetic-user 질문
 - `target_responses.jsonl`: 제공된 응답 또는 mock 응답
 - `evaluation_results.jsonl`: rubric score와 failure signal
+- `persona_selection_audit.json`: sampling logic과 target-fit caveat
+- `persona_selection_report.md`: 사람이 읽을 수 있는 persona panel review note
 - `report.md`: 사람이 읽을 수 있는 synthetic-evidence report
 - `run_config.json`: synthetic-hypothesis warning이 포함된 run metadata
+
+키워드 리서치, Search Console export, 랜딩 페이지 전환 로그 같은 방향성 시장 근거를 붙이려면 CSV 또는 JSON 파일을 넘깁니다.
+
+```powershell
+b4user run --personas data/personas_sample.jsonl --service configs/service.yaml --domain-pack generic --n-personas 20 --questions-per-persona 2 --output-dir outputs/demo --seed 42 --market-evidence market_evidence.csv
+```
+
+market evidence는 report의 claim limit을 바꾸기 위한 참고 근거입니다. 합성 페르소나 점수를 실제 시장 검증으로 바꾸지는 않습니다.
 
 ## CLI 명령
 
@@ -91,6 +103,8 @@ Markdown report 생성:
 ```powershell
 b4user report --results outputs/evaluation_results.jsonl --profiles outputs/profiles.jsonl --scenarios outputs/scenarios.jsonl --questions outputs/questions.jsonl --service configs/service.yaml --output outputs/report.md
 ```
+
+외부 방향성 신호를 함께 표시하려면 `--market-evidence market_evidence.csv`를 추가합니다.
 
 Nemotron persona import:
 

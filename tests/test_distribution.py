@@ -47,6 +47,13 @@ def test_npm_cli_package_uses_public_license() -> None:
 
 def test_lite_pipeline_smoke(tmp_path: Path) -> None:
     out = tmp_path / "demo"
+    market_evidence = tmp_path / "market_evidence.csv"
+    market_evidence.write_text(
+        "source,signal_type,label,value,period,region\n"
+        "naver_datalab,search_trend,automation consultant,64,2026-05,KR\n"
+        "landing,signup,waitlist signup,9,2026-05,KR\n",
+        encoding="utf-8",
+    )
     result = subprocess.run(
         [
             sys.executable,
@@ -67,6 +74,8 @@ def test_lite_pipeline_smoke(tmp_path: Path) -> None:
             str(out),
             "--seed",
             "42",
+            "--market-evidence",
+            str(market_evidence),
         ],
         cwd=REPO_ROOT,
         env=_env(),
@@ -77,5 +86,12 @@ def test_lite_pipeline_smoke(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert (out / "questions.jsonl").exists()
     assert (out / "evaluation_results.jsonl").exists()
+    assert (out / "persona_selection_audit.json").exists()
+    assert (out / "persona_selection_report.md").exists()
+    assert (out / "market_evidence.json").exists()
+    assert (out / "market_evidence_report.md").exists()
     report = (out / "report.md").read_text(encoding="utf-8")
     assert "# B4User Evaluation Report" in report
+    assert "Decision Brief" in report
+    assert "Market Evidence" in report
+    assert "Persona Selection Audit" in report

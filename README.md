@@ -28,7 +28,8 @@ evidence artifacts that a human can review.
   service spec.
 - Run a deterministic local evaluation with mock target responses.
 - Evaluate collected target responses against a generic response-quality rubric.
-- Produce Markdown reports and JSONL artifacts for review.
+- Produce Markdown reports, persona-selection audits, and JSONL artifacts for review.
+- Attach directional market-evidence CSV/JSON signals to report claim limits.
 - Import a sample from `nvidia/Nemotron-Personas-Korea` when the optional
   Hugging Face dependencies are installed.
 
@@ -41,7 +42,10 @@ evidence artifacts that a human can review.
 - Mock response collection for offline smoke tests.
 - Basic response-quality scoring with generic rubric axes:
   `clarity`, `actionability`, `risk_disclosure`, and `persona_fit`.
-- Markdown report generation with explicit synthetic-hypothesis wording.
+- Markdown report generation with Decision Brief, claim ledger, and explicit
+  synthetic-hypothesis wording.
+- Persona-selection audit output that shows sampling logic, target-fit caveats,
+  and human review candidates.
 - Nemotron-Personas-Korea importer with source attribution metadata.
 - npm wrapper package source for installing/running the Python CLI.
 
@@ -80,8 +84,20 @@ Typical outputs:
 - `questions.jsonl`: generated synthetic-user questions
 - `target_responses.jsonl`: provided or mock target responses
 - `evaluation_results.jsonl`: rubric scores and failure signals
+- `persona_selection_audit.json`: sampling logic and target-fit caveats
+- `persona_selection_report.md`: human-readable persona panel review notes
 - `report.md`: human-readable synthetic-evidence report
 - `run_config.json`: run metadata with the synthetic-hypothesis warning
+
+To attach directional market evidence from sources such as keyword research,
+Search Console exports, or landing-page conversion logs, pass a CSV or JSON file:
+
+```powershell
+b4user run --personas data/personas_sample.jsonl --service configs/service.yaml --domain-pack generic --n-personas 20 --questions-per-persona 2 --output-dir outputs/demo --seed 42 --market-evidence market_evidence.csv
+```
+
+Market evidence changes the report's claim limits; it does not turn synthetic
+persona scores into real market validation.
 
 ## CLI Commands
 
@@ -102,6 +118,9 @@ Generate a Markdown report:
 ```powershell
 b4user report --results outputs/evaluation_results.jsonl --profiles outputs/profiles.jsonl --scenarios outputs/scenarios.jsonl --questions outputs/questions.jsonl --service configs/service.yaml --output outputs/report.md
 ```
+
+Add `--market-evidence market_evidence.csv` to include directional external
+signals in the regenerated report.
 
 Import Nemotron personas:
 

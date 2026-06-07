@@ -4,7 +4,13 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from kpeh.core.io_utils import ensure_parent_dir
+from kpeh.core.market_evidence import (
+    build_report_decision_brief,
+    markdown_lines_from_decision_brief,
+    markdown_lines_from_market_evidence,
+)
 from kpeh.core.models import EvaluationResult, EvaluationScenario, PersonaProfile, ServiceSpec, SyntheticUserQuestion
+from kpeh.core.persona_selection_audit import markdown_lines_from_audit
 
 
 def generate_report(
@@ -13,6 +19,8 @@ def generate_report(
     scenarios: list[EvaluationScenario],
     questions: list[SyntheticUserQuestion],
     service: ServiceSpec | None = None,
+    selection_audit: dict[str, object] | None = None,
+    market_evidence: dict[str, object] | None = None,
 ) -> str:
     completed = [result for result in results if result.status == "completed" and result.max_score > 0]
     question_by_id = {question.question_id: question for question in questions}
@@ -28,6 +36,24 @@ def generate_report(
         "> 본 리포트는 합성 페르소나 기반 평가 결과입니다. 실제 사용자 조사나 시장 반응 예측을 대체하지 않으며, 제품 개선을 위한 가설로 사용해야 합니다."
     )
     lines.append("")
+    brief = build_report_decision_brief(
+        evaluation_mode="response_quality",
+        target=service,
+        synthetic_score=overall_average,
+        selection_audit=selection_audit,
+        market_evidence=market_evidence,
+        top_strengths=[
+            f"{criterion}: {average:.2f}"
+            for criterion, average in sorted(criterion_average.items(), key=lambda item: item[1], reverse=True)[:3]
+        ],
+        top_risks=[f"{_label_for_code(code, results)} ({count})" for code, count in failure_counts.most_common(3)],
+        next_actions=[suggestion for suggestion, _count in _suggestion_counts(results).most_common(3)],
+    )
+    lines.extend(markdown_lines_from_decision_brief(brief))
+    if market_evidence:
+        lines.extend(markdown_lines_from_market_evidence(market_evidence))
+    if selection_audit:
+        lines.extend(markdown_lines_from_audit(selection_audit))
     lines.append("## Executive Summary")
     lines.append("")
     lines.append(f"- 평가 질문 수: {len(questions)}")
